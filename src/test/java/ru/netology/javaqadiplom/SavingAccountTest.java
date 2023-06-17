@@ -113,6 +113,18 @@ public class SavingAccountTest {
             );
         });
     }
+    @Test // Тест проверка Исключение для ставки
+    public void TestThrowExceptionForRate() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    1000,
+                    1_000,
+                    15_000,
+                    0
+            );
+        });
+    }
+
     @Test // Исключение для минимального баланса
     public void ThrowExceptionForMinBalance() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -147,6 +159,7 @@ public class SavingAccountTest {
 
         Assertions.assertEquals(400, account.yearChange());
     }
+
     @Test // Расчет итоговой суммы с процентами
     public void shouldAmountWithInterest() {
         SavingAccount account = new SavingAccount(
@@ -157,8 +170,9 @@ public class SavingAccountTest {
         );
 
 
-        Assertions.assertEquals(8400,account.getBalance() + account.yearChange());
+        Assertions.assertEquals(8400, account.getBalance() + account.yearChange());
     }
+
     @Test //Пополнение 0 при положительном балансе
     public void shouldAddWithNull() {
         SavingAccount account = new SavingAccount(
