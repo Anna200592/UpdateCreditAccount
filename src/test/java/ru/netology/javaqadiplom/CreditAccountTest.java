@@ -86,6 +86,7 @@ public class CreditAccountTest {
 
         account.pay(15_000);
         Assertions.assertEquals(5000, account.getBalance());
+
     }
 
     @Test // Покупка равна 0
@@ -154,6 +155,5 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(0, account.yearChange());
     }
-
 
 }
