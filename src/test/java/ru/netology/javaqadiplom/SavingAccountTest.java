@@ -131,7 +131,7 @@ public class SavingAccountTest {
                     1000,
                     1_000,
                     15_000,
-                    0
+                    -30
             );
             System.out.println(account.getBalance());
         });
@@ -242,30 +242,29 @@ public class SavingAccountTest {
 
         Assertions.assertEquals(450, account.yearChange());
     }
+    @Test //Пополнение больше максимального баланса
+    public void shouldAddForMinBalance1() {
+        SavingAccount account = new SavingAccount(
+                5000,
+                1_000,
+                15_000,
+                5
+        );
 
-    @Test // Исключение баланса меньше минимального
-    public void ThrowExceptionForBalanceLessMinBalance() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            SavingAccount account = new SavingAccount(
-                    2000,
-                    1_000,
-                    15_000,
-                    5
-            );
-            account.pay(3000);
-        });
+        account.add(16000);
+        Assertions.assertEquals(5000, account.getBalance());
     }
+    @Test //Покупка больше баланса
+    public void shouldAddForMinBalance2() {
+        SavingAccount account = new SavingAccount(
+                5000,
+                1_000,
+                15_000,
+                5
+        );
 
-    @Test // Исключение баланса больше максимального
-    public void ThrowExceptionForBalanceMoreMaxBalance() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            SavingAccount account = new SavingAccount(
-                    2000,
-                    1_000,
-                    15_000,
-                    5
-            );
-            account.add(14000);
-        });
+        account.pay(16000);
+        Assertions.assertEquals(5000, account.getBalance());
     }
 }
+

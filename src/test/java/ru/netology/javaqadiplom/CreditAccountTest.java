@@ -86,7 +86,6 @@ public class CreditAccountTest {
 
         account.pay(15_000);
         Assertions.assertEquals(5000, account.getBalance());
-
     }
 
     @Test // Покупка равна 0
@@ -98,6 +97,30 @@ public class CreditAccountTest {
         );
 
         account.pay(0);
+        Assertions.assertEquals(5000, account.getBalance());
+    }
+
+    @Test // Покупка равна сумме баланса и лимита
+    public void shouldPayForAmountBalansAndLimit() {
+        CreditAccount account = new CreditAccount(
+                5_000,
+                5_000,
+                10
+        );
+
+        account.pay(10_000);
+        Assertions.assertEquals(-5000, account.getBalance());
+    }
+
+    @Test // Покупка на отрацательное число
+    public void shouldPaynegative() {
+        CreditAccount account = new CreditAccount(
+                5_000,
+                5_000,
+                10
+        );
+
+        account.pay(-100);
         Assertions.assertEquals(5000, account.getBalance());
     }
 
@@ -156,4 +179,14 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.yearChange());
     }
 
+    @Test //Баланс 0, проценты 0
+    public void ShouldBalanceEqualsZero() {
+        CreditAccount account = new CreditAccount(
+                0,
+                5_000,
+                15
+        );
+
+        Assertions.assertEquals(0, account.yearChange());
+    }
 }
