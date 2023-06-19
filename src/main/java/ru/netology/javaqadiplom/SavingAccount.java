@@ -25,6 +25,17 @@ public class SavingAccount extends Account {
             throw new IllegalArgumentException(
                     "Максимальный баланс не должен быть равен или меньше минимального, а у вас: " + maxBalance
             );
+
+        }
+        if (initialBalance < minBalance) {
+            throw new IllegalArgumentException(
+                    "Баланс не может быть меньше минимального, а у вас: " + balance
+            );
+        }
+        if (initialBalance > maxBalance) {
+            throw new IllegalArgumentException(
+                    "Баланс не может быть ,больше максимального, а у вас: " + balance
+            );
         }
         this.balance = initialBalance;
         this.minBalance = minBalance;
@@ -38,7 +49,7 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        if (balance - amount > 0) {
+        if (balance - amount >= minBalance) {
             balance = balance - amount;
             return true;
         } else {
@@ -53,7 +64,7 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        if (balance + amount < 0) {
+        if (balance + amount <= maxBalance) {
             balance = balance + amount;
             return true;
         } else {
@@ -64,12 +75,7 @@ public class SavingAccount extends Account {
 
     @Override
     public int yearChange() {
-        if (balance >= maxBalance) {
-            return 0;
-        } else {
-            return balance / 100 * rate;
-        }
-
+        return balance / 100 * rate;
     }
 
     public int getMinBalance() {

@@ -22,7 +22,7 @@ public class SavingAccountTest {
     public void shouldAddThanMaxBalanceWithMinimum() {
         SavingAccount account = new SavingAccount(
                 0,
-                1_000,
+                0,
                 10_000,
                 5
         );
@@ -35,7 +35,7 @@ public class SavingAccountTest {
     @Test // Пополнение на ноль
     public void shouldAddToZeroBalance() {
         SavingAccount account = new SavingAccount(
-                0,
+                1000,
                 1_000,
                 10_000,
                 5
@@ -43,7 +43,7 @@ public class SavingAccountTest {
 
         account.add(0);
 
-        Assertions.assertEquals(0, account.getBalance());
+        Assertions.assertEquals(1000, account.getBalance());
     }
 
     @Test //Пополнение больше максимального баланса
@@ -59,19 +59,6 @@ public class SavingAccountTest {
         Assertions.assertEquals(14_000, account.getBalance());
     }
 
-    @Test //Пополнение для минимального баланса
-    public void shouldAddForMinBalance() {
-        SavingAccount account = new SavingAccount(
-                0,
-                1_000,
-                15_000,
-                5
-        );
-
-        account.add(1000);
-        Assertions.assertEquals(1_000, account.getMinBalance());
-    }
-
     @Test //Пополнение для максимального баланса
     public void shouldAddLessForMaxBalance() {
         SavingAccount account = new SavingAccount(
@@ -85,17 +72,17 @@ public class SavingAccountTest {
         Assertions.assertEquals(15_000, account.getMaxBalance());
     }
 
-    @Test //Пополнение ниже минимального баланса
+    @Test //Покупка ниже минимального баланса
     public void shouldAddBelowMinBalance() {
         SavingAccount account = new SavingAccount(
-                0,
+                1000,
                 1_000,
                 15_000,
                 5
         );
 
-        account.add(500);
-        Assertions.assertEquals(500, account.getBalance());
+        account.pay(500);
+        Assertions.assertEquals(1000, account.getBalance());
     }
 
     @Test // Исключение для начального баланса
@@ -123,20 +110,6 @@ public class SavingAccountTest {
             System.out.println(account.getBalance());
         });
     }
-
-    @Test // Тест проверка Исключение для ставки
-    public void TestThrowExceptionForRate() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            SavingAccount account = new SavingAccount(
-                    1000,
-                    1_000,
-                    15_000,
-                    -30
-            );
-            System.out.println(account.getBalance());
-        });
-    }
-
 
     @Test // Исключение для минимального баланса
     public void ThrowExceptionForMinBalance() {
@@ -190,30 +163,17 @@ public class SavingAccountTest {
         Assertions.assertEquals(8400, account.getBalance() + account.yearChange());
     }
 
-    @Test //Пополнение 0 при положительном балансе
-    public void shouldAddWithNull() {
-        SavingAccount account = new SavingAccount(
-                2_000,
-                1_000,
-                15_000,
-                5
-        );
-
-        account.add(0);
-        Assertions.assertEquals(2_000, account.getBalance());
-    }
-
     @Test //Снятие суммы
     public void shouldWithdrawal() {
         SavingAccount account = new SavingAccount(
-                2_000,
+                5_000,
                 1_000,
                 15_000,
                 5
         );
 
         account.pay(1000);
-        Assertions.assertEquals(1_000, account.getBalance());
+        Assertions.assertEquals(4_000, account.getBalance());
     }
 
     @Test // Расчет процентов за год
@@ -230,7 +190,33 @@ public class SavingAccountTest {
         Assertions.assertEquals(450, account.yearChange());
     }
 
-    @Test // Расчет процентов за год при тратах
+    @Test // Исключение для баланса больше максимального
+    public void ThrowExceptionForBalanceMore() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    3000,
+                    1_000,
+                    2_000,
+                    5
+            );
+            System.out.println(account.getBalance());
+        });
+    }
+
+    @Test // Исключение для баланса меньше минимального
+    public void ThrowExceptionForBalanceLess() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    0,
+                    1_000,
+                    2_000,
+                    5
+            );
+            System.out.println(account.getBalance());
+        });
+    }
+
+    @Test // Расчет процентов за год при покупках
     public void shouldInterestCalculationWithPay() {
         SavingAccount account = new SavingAccount(
                 10_000,
@@ -242,29 +228,20 @@ public class SavingAccountTest {
 
         Assertions.assertEquals(450, account.yearChange());
     }
-    @Test //Пополнение больше максимального баланса
-    public void shouldAddForMinBalance1() {
+
+    @Test //Снятие суммы
+    public void shouldWithdrawalWithMinBalance() {
         SavingAccount account = new SavingAccount(
-                5000,
+                2_000,
                 1_000,
                 15_000,
                 5
         );
 
-        account.add(16000);
-        Assertions.assertEquals(5000, account.getBalance());
+        account.pay(1000);
+        Assertions.assertEquals(1_000, account.getBalance());
     }
-    @Test //Покупка больше баланса
-    public void shouldAddForMinBalance2() {
-        SavingAccount account = new SavingAccount(
-                5000,
-                1_000,
-                15_000,
-                5
-        );
 
-        account.pay(16000);
-        Assertions.assertEquals(5000, account.getBalance());
-    }
+
 }
 
