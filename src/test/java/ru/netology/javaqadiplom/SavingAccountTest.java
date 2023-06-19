@@ -124,6 +124,20 @@ public class SavingAccountTest {
         });
     }
 
+    @Test // Тест проверка Исключение для ставки
+    public void TestThrowExceptionForRate() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            SavingAccount account = new SavingAccount(
+                    1000,
+                    1_000,
+                    15_000,
+                    0
+            );
+            System.out.println(account.getBalance());
+        });
+    }
+
+
     @Test // Исключение для минимального баланса
     public void ThrowExceptionForMinBalance() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
