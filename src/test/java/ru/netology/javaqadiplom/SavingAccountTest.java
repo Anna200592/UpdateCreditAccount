@@ -242,6 +242,4 @@ public class SavingAccountTest {
         Assertions.assertEquals(1_000, account.getBalance());
     }
 
-
 }
-
