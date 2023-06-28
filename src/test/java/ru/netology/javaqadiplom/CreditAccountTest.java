@@ -184,7 +184,7 @@ public class CreditAccountTest {
         CreditAccount account = new CreditAccount(
                 0,
                 5_000,
-                15
+                0
         );
 
         Assertions.assertEquals(0, account.yearChange());
