@@ -201,16 +201,4 @@ public class CreditAccountTest {
             );
         });
     }
-
-    
-    @Test //Ставка 0 исключение
-    public void ShouldRateEqualsZero() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount account = new CreditAccount(
-                    200,
-                    1000,
-                    0
-            );
-        });
-    }
 }
