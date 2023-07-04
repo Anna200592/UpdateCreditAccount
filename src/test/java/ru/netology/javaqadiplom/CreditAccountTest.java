@@ -179,16 +179,16 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.yearChange());
     }
 
-    @Test //Баланс 0, проценты 0
-    public void ShouldBalanceEqualsZero() {
-        CreditAccount account = new CreditAccount(
-                0,
-                5_000,
-                0
-        );
-
-        Assertions.assertEquals(0, account.yearChange());
-    }
+   @Test //Ставка 0 исключение
+    public void ShouldRateEqualsZero() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            CreditAccount account = new CreditAccount(
+                    200,
+                    1000,
+                    0
+            );
+        });
+    } 
 
     
     @Test //Кредитный лимит равен 0 исключение
