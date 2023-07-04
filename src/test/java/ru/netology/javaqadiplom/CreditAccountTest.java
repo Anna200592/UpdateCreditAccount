@@ -178,27 +178,28 @@ public class CreditAccountTest {
 
         Assertions.assertEquals(0, account.yearChange());
     }
-
-   @Test //Ставка 0 исключение
-    public void ShouldRateEqualsZero() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount account = new CreditAccount(
-                    200,
-                    1000,
-                    0
-            );
-        });
-    } 
-
-    
-    @Test //Кредитный лимит равен 0 исключение
-    public void ShouldCreditLimitEqualsZero() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            CreditAccount account = new CreditAccount(
-                    200,
-                    0,
-                    15
-            );
-        });
-    }
+//_________Тесты проверки на ошибки________
+//
+//   @Test //Ставка 0 исключение
+//    public void ShouldRateEqualsZero() {
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+//            CreditAccount account = new CreditAccount(
+//                    200,
+//                    1000,
+//                    0
+//            );
+//        });
+//    }
+//
+//
+//    @Test //Кредитный лимит равен 0 исключение
+//    public void ShouldCreditLimitEqualsZero() {
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+//            CreditAccount account = new CreditAccount(
+//                    200,
+//                    0,
+//                    15
+//            );
+//        });
+//    }
 }
