@@ -197,7 +197,7 @@ public class CreditAccountTest {
             CreditAccount account = new CreditAccount(
                     200,
                     0,
-                    -15
+                    15
             );
         });
     }
